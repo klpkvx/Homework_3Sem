@@ -22,58 +22,49 @@ int main(int argc, char *argv[])
 	double t = 0;
 	int task = 2;
 
-	switch (argc)
+	if (!(argc == 7 || argc == 8 || argc == 9))
 	{
-	case 7:
-		if (!((sscanf(argv[1], "%d", &n1) == 1) && (sscanf(argv[2], "%d", &p1) == 1) && (sscanf(argv[3], "%d", &s1) == 1) && (sscanf(argv[4], "%d", &n2) == 1) && (sscanf(argv[5], "%d", &p2) == 1) && (sscanf(argv[6], "%d", &s2) == 1) && (s1 > 0) && (s1 < 6) && (s2 > 0) && (s2 < 6)))
+		printf("Input %s n1 p1 s1 file1 n2 p2 s2 file\n", argv[0]);
+		return ERROR_ARGS;
+	}
+
+	if (argc == 7)
+	{
+		!((sscanf(argv[1], "%d", &n1) == 1) && (sscanf(argv[2], "%d", &p1) == 1) && (sscanf(argv[3], "%d", &s1) == 1) && (sscanf(argv[4], "%d", &n2) == 1) && (sscanf(argv[5], "%d", &p2) == 1) && (sscanf(argv[6], "%d", &s2) == 1) && (s1 > 0) && (s1 < 5) && (s1 > 0) && (s2 < 5));
 		{
-			printf("Input %s n1 p1 s1 file1 n2 p2 s2 file2\n", argv[0]);
+			printf("Input %s n1 p1 s1 file1 n2 p2 s2 file\n", argv[0]);
 			return ERROR_ARGS;
 		}
-		break;
-	case 8:
-		if (!((sscanf(argv[1], "%d", &n1) == 1) && (sscanf(argv[2], "%d", &p1) == 1) && (sscanf(argv[3], "%d", &s1) == 1) && (s1 >= 0) && (s1 < 6)))
-		{
-			printf("Input %s n1 p1 s1 file1 n2 p2 s2 file2\n", argv[0]);
-			return ERROR_ARGS;
-		}
-		if (s1 == 0)
+	}
+	if (argc == 8)
+	{
+		if (sscanf(argv[1], "%d", &n1) == 1 && sscanf(argv[2], "%d", &p1) == 1 && sscanf(argv[3], "%d", &s1) == 1 && sscanf(argv[5], "%d", &n2) == 1 && sscanf(argv[6], "%d", &p2) == 1 && sscanf(argv[7], "%d", &s2) == 1 && s1 == 0 && s2 > 0 && s2 <= 4)
 		{
 			filename1 = argv[4];
-			if (!((sscanf(argv[5], "%d", &n2) == 1) && (sscanf(argv[6], "%d", &p2) == 1) && (sscanf(argv[7], "%d", &s2) == 1) && (s2 > 0) && (s1 < 6)))
-			{
-				printf("Input %s n1 p1 s1 file1 n2 p2 s2 file2\n", argv[0]);
-				return ERROR_ARGS;
-			}
+		}
+		else if (sscanf(argv[1], "%d", &n1) == 1 && sscanf(argv[2], "%d", &p1) == 1 && sscanf(argv[3], "%d", &s1) == 1 && sscanf(argv[4], "%d", &n2) == 1 && sscanf(argv[5], "%d", &p2) == 1 && sscanf(argv[6], "%d", &s2) == 1 && s2 == 0 && s1 > 0 && s1 <= 4)
+		{
+			filename2 = argv[7];
 		}
 		else
 		{
-			if (!((sscanf(argv[4], "%d", &n2) == 1) && (sscanf(argv[5], "%d", &p2) == 1) && (sscanf(argv[6], "%d", &s2) == 1) && (s2 >= 0) && (s1 < 6)))
-			{
-				printf("Input %s n1 p1 s1 file1 n2 p2 s2 file\n", argv[0]);
-				return ERROR_ARGS;
-			}
-			if (s2 != 0)
-			{
-				printf("Input error!\n");
-				return ERROR_ARGS;
-			}
-			filename2 = argv[7];
-		}
-		break;
-	case 9:
-		if (!((sscanf(argv[1], "%d", &n1) == 1) && (sscanf(argv[2], "%d", &p1) == 1) && (sscanf(argv[3], "%d", &s1) == 1) && (sscanf(argv[5], "%d", &n2) == 1) && (sscanf(argv[6], "%d", &p2) == 1) && (sscanf(argv[7], "%d", &s2) == 1) && (s1 > 0) && (s1 < 6) && (s2 > 0) && (s2 < 6)))
-		{
-			printf("Input %s n1 p1 s1 file1 n2 p2 s2 file2", argv[0]);
+			printf("Input %s n1 p1 s1 file1 n2 p2 s2 file\n", argv[0]);
 			return ERROR_ARGS;
 		}
-		filename1 = argv[4];
-		filename2 = argv[8];
-		break;
-	default:
-		printf("Input %s n1 p1 s1 filename1 n2 p2 s2 filename2\n", argv[0]);
-		return ERROR_ARGS;
-		break;
+	}
+	if (argc == 9)
+	{
+		if (
+				!(sscanf(argv[1], "%d", &n1) == 1 && sscanf(argv[2], "%d", &p1) == 1 && sscanf(argv[3], "%d", &s1) == 1 && sscanf(argv[5], "%d", &n2) == 1 && sscanf(argv[6], "%d", &p2) == 1 && sscanf(argv[7], "%d", &s2) == 1 && s1 == 0 && s2 == 0))
+		{
+			printf("Input %s n1 p1 s1 file1 n2 p2 s2 file\n", argv[0]);
+			return ERROR_ARGS;
+		}
+		else
+		{
+			filename1 = argv[4];
+			filename2 = argv[8];
+		}
 	}
 
 	array1 = new Student[n1];

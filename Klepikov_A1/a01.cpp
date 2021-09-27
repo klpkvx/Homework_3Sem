@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
 	char *filename = nullptr;
 
 	int err = 0;
+	int res = 0;
 	int diff = 0;
 	double t = 0;
 	int task = 1;
@@ -81,14 +82,14 @@ int main(int argc, char *argv[])
 	Print_Array(array, n, p);
 
 	t = clock();
-	diff = task01(n, array, x);
+	res= task01(n, array, x);
 	t = (clock() - t) / CLOCKS_PER_SEC;
 
 	printf("Sorted array:\n");
 	Print_Array(array, n, p);
 
-
-
+	diff = d_count(array, n);
+	printf("\nResult = %d\n", res);
 	printf("%s : Task = %d Diff = %d Elapsed = %.2f\n", argv[0], task, diff, t);
 	delete[] array;
 	x.set_name(nullptr);

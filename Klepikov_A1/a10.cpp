@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 	int err = 0;
 	int diff = 0;
 	double t = 0;
-	int task = 9;
+	int task = 10;
 
 	switch (argc)
 	{
@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
 	printf("\n");
 
 	t = clock();
-	task09(array, n);
+	task10(array, n);
 	t = (clock() - t) / CLOCKS_PER_SEC;
 
 	Print_Array(array, n, p);

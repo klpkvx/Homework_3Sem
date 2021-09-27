@@ -59,20 +59,20 @@ void task02(Student *array1, Student *array2, Student *array3, int len1, int len
 		array3[k++] = (Student &&) array2[j++];
 }
 
-int task03(Student *a, int n, Student &x)
+int task03(Student *array, int len, Student &x)
 {
-	int i = 0, j = n - 1;
+	int i = 0, j = len - 1;
 
 	while (i <= j)
 	{
-		while ((i < n) && (a[i] < (x)) > 0)
+		while ((i < len) && (array[i] < (x)) > 0)
 			i++;
-		while ((j >= 0) && (a[j] > (x)) > 0)
+		while ((j >= 0) && (array[j] > (x)) > 0)
 			j--;
 
 		if (i <= j)
 		{
-			a[i].swap(a[j]);
+			array[i].swap(array[j]);
 
 			i++;
 			j--;
@@ -115,12 +115,12 @@ void task05(Student *array, int len) // Нахождение минимума
 	}
 }
 
-void task06(Student *array, int n)
+void task06(Student *array, int len)
 {
 	int i, j, k;
 	Student tmp;
 
-	for (i = 1; i < n; i++)
+	for (i = 1; i < len; i++)
 	{
 		j = 0;
 
@@ -136,14 +136,14 @@ void task06(Student *array, int n)
 	}
 }
 
-void task07(Student *array, int n)
+void task07(Student *array, int len)
 {
 	int i, j, k;
 	Student tmp;
 
-	if (n > 1)
+	if (len > 1)
 	{
-		for (i = 1; i < n; i++)
+		for (i = 1; i < len; i++)
 		{
 			j = task01(i, array, array[i]);
 
@@ -157,22 +157,22 @@ void task07(Student *array, int n)
 	}
 }
 
-void task08(Student *a, Student *b, int n)
+void task08(Student *a, Student *b, int len)
 {
 	Student *a1 = a;
 	Student *c = nullptr;
 	int i, j = 2, k, last;
 
-	last = n % 2;
+	last = len % 2;
 
-	while (j <= n)
+	while (j <= len)
 	{
-		for (i = 0; i + j <= n; i += j)
+		for (i = 0; i + j <= len; i += j)
 			task02(a + i, a + i + j / 2, b + i, j / 2, j / 2);
 
-		if (last != (n % j))
+		if (last != (len % j))
 		{
-			k = (n % j) - last;
+			k = (len % j) - last;
 			task02(a + i, a + i + k, b + i, k, last);
 		}
 
@@ -185,7 +185,7 @@ void task08(Student *a, Student *b, int n)
 			}
 		}
 
-		last = n % j;
+		last = len % j;
 		j *= 2;
 
 		c = a;
@@ -193,28 +193,52 @@ void task08(Student *a, Student *b, int n)
 		b = c;
 	}
 
-	if (n > j / 2)
+	if (len > j / 2)
 	{
-		task02(a, a + j / 2, b, j / 2, n - j / 2);
+		task02(a, a + j / 2, b, j / 2, len - j / 2);
 		a = b;
 	}
 
 	if (a1 != a)
 	{
-		for (i = 0; i < n; i++)
-			a1[i] = a[i];
+		for (i = 0; i < len; i++)
+			a1[i] = (Student &&) a[i];
 	}
 }
 
+int task09_01(Student *array, int len, int k)
+{
+	int i = -1, j = len;
+	while (1)
+	{
+		while ((i < len - 1) && ((array[++i] < array[k]) > 0));
+		while ((j > 0) && ((array[--j] > array[k]) > 0));
+		if (i < j)
+		{
+			array[i].swap(array[j]);
+			if (i == k)
+				k = j;
+			else
+				if (j == k)
+					k = i;
+		}
+		else
+		{
+			if (j < len - 1)
+				j++;
+			return j;
+		}
+	}
+}
 void task09(Student *array, int len)
 {
 	int k = 0;
-	Student x;
+	//	Student x;
 
 	while (len > 1)
 	{
-		x = array[len / 2];
-		k = task03(array, len, x);
+		//	x = array[len / 2];
+		k = task09_01(array, len, len / 2);
 
 		if (k < len - k)
 		{
@@ -231,12 +255,17 @@ void task09(Student *array, int len)
 	}
 }
 
-int d_count(Student *a, int n)
+/*(oid 	HEEEEEEEEEAP_SOoooooRT(Student *array,int len)
+{
+
+}
+*/
+int d_count(Student *array, int len)
 {
 	int count = 0;
 
-	for (int i = 1; i < n; i++)
-		if ((a[i] > (a[i - 1])) > 0)
+	for (int i = 1; i < len; i++)
+		if (!(array[i] == array[i - 1]))
 			count++;
 
 	return count;
